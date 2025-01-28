@@ -5,18 +5,11 @@
 /* Add EquipExtended font */
 @font-face {
   font-family: 'EquipExtended';
-  src: url('/assets/font/EquipExtended-Regular.ttf') format('truetype'); /* Regular */
+  src: url('/assets/font/Inter_28pt-Regular.ttf') format('truetype'); /* Regular */
   font-weight: 400;
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'EquipExtended';
-  src: url('/assets/font/EquipExtended-Bold.ttf') format('truetype'); /* Bold */
-  font-weight: 700;
-  font-style: normal;
-}
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 
 
@@ -36,14 +29,12 @@
   }
 }
 
-/* Body styles */
+
 body {
   color: var(--foreground);
   background: var(--background);
-  /* font-family: 'EquipExtended', sans-serif;  */
-  font-family: 'Inter', sans-serif;
+  font-family: 'EquipExtended', sans-serif;
     margin: 0;
   padding: 0;
-  font-size: 16px; /* Add a default font size */
-}
+  font-size: 16px; }
 

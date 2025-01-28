@@ -48,7 +48,7 @@ const CourceManagement = () => {
             <div className="relative w-full h-2 rounded bg-gray-200 dark:bg-gray-700 mb-4">
               <div
                 className="absolute h-2 rounded"
-                style={{ width: `${course.progress}%, backgroundColor: primaryColor` }}
+                style={{ width: `${course.progress}%`, backgroundColor: primaryColor }}
               ></div>
             </div>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">

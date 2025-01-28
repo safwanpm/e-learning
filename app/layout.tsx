@@ -1,7 +1,7 @@
 'use client';
 import { Geist, Geist_Mono } from "next/font/google";
-import { Provider } from "react-redux"; // Import the Provider
-import store from "./redux/store"; // Import the Redux store
+import { Provider } from "react-redux";
+import store from "./redux/store"; 
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,9 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-bgcolor dark:bg-black antialiased`}
-        style={{ fontFamily: "Inter, sans-serif" }} // Use EquipExtended font
+        style={{ fontFamily: "'EquipExtended', sans-serif" }} 
       >
-        {/* Wrap children with Redux Provider */}
+      
         <Provider store={store}>{children}</Provider>
       </body>
     </html>
