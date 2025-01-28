@@ -1,5 +1,4 @@
 'use client';
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Provider } from "react-redux"; // Import the Provider
 import store from "./redux/store"; // Import the Redux store

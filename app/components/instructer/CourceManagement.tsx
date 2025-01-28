@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { InstructorCourses } from "@/public/assets/data/UserData";
 import { InstructorStudent } from "@/public/assets/data/UserData";
+import Image from 'next/image';
+
 const CourceManagement = () => {
 
 
@@ -71,11 +73,14 @@ const CourceManagement = () => {
             <div key={student.id} className="mb-6">
               <div className="flex items-center space-x-4 mb-4">
                 <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                  <img
-                    src='/assets/image/profile.png'
-                    alt={student.name}
-                    className="w-full h-full object-cover"
-                  />
+                  
+                  <Image
+  src='/assets/image/profile.png'
+  alt={student.name}
+  width={300}                  
+  height={300}                   
+  priority={true}                
+/>
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">

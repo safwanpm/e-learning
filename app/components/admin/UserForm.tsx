@@ -21,7 +21,7 @@ const UserForm = () => {
 
   const totalPages = Math.ceil(filteredData.length / usersPerPage);
 
-  const handlePageChange = (page:any) => {
+  const handlePageChange = (page:number) => {
     setCurrentPage(page);
   };
 
@@ -106,7 +106,7 @@ const UserForm = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-300 dark:divide-gray-600">
-                {currentUsers.map((user, index) => (
+                {currentUsers.map((user) => (
                   <tr
                     key={user.id}
                     className="hover:bg-gray-50 dark:hover:bg-gray-600 text-start whitespace-nowrap text-textSecondary dark:text-white"

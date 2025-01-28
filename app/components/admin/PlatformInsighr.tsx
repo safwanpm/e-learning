@@ -8,23 +8,52 @@ import {
   LinearScale,
   Tooltip,
   Legend,
+  ChartOptions,
 } from 'chart.js';
-import { adminData } from '../../../public/assets/data/UserData';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const ITEMS_PER_PAGE = 4;
 
-const PlatformInsights = () => {
-  const [selectedYear, setSelectedYear] = useState(2023);
-  const [currentPage, setCurrentPage] = useState(1);
+interface AdminData {
+  year: number;
+  months: { month: string; engagement: number; students: number }[];
+}
 
-  const handleYearChange = (year) => {
+// Sample admin data typed with AdminData
+const adminData: AdminData[] = [
+  {
+    year: 2023,
+    months: [
+      { month: 'January', engagement: 80, students: 100 },
+      { month: 'February', engagement: 85, students: 110 },
+      { month: 'March', engagement: 78, students: 95 },
+      { month: 'April', engagement: 90, students: 120 },
+    ],
+  },
+  {
+    year: 2022,
+    months: [
+      { month: 'January', engagement: 70, students: 90 },
+      { month: 'February', engagement: 75, students: 95 },
+      { month: 'March', engagement: 72, students: 85 },
+      { month: 'April', engagement: 88, students: 100 },
+    ],
+  },
+];
+
+const PlatformInsights: React.FC = () => {
+  const [selectedYear, setSelectedYear] = useState<number>(2023);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const handleYearChange = (year: number) => {
     setSelectedYear(year);
     setCurrentPage(1);
   };
 
-  const currentYearData = adminData.find((data) => data.year === selectedYear)?.months || [];
+  const currentYearData =
+    adminData.find((data) => data.year === selectedYear)?.months || [];
+
   const totalPages = Math.ceil(currentYearData.length / ITEMS_PER_PAGE);
   const paginatedData = currentYearData.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -42,45 +71,53 @@ const PlatformInsights = () => {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<'bar'> = {
     responsive: true,
-    maintainAspectRatio: false, // Allows custom height
+    maintainAspectRatio: false,
     plugins: {
       legend: { position: 'top' },
       tooltip: { enabled: true },
     },
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
       setCurrentPage(page);
     }
   };
 
+  if (currentYearData.length === 0) {
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-800">
+        <p className="text-lg text-gray-600 dark:text-gray-300">
+          No data available for the selected year.
+        </p>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-teritory dark:bg-gray-800 py-6">
-      <div className="w-full max-w-6xl bg-white dark:bg-gray-800 p-6">
+    <div className="flex justify-center items-center min-h-screen bg-teritory dark:bg-gray-800 py-6 px-4">
+      <div className="w-full max-w-6xl bg-white dark:bg-gray-900 p-6 rounded-lg">
         <h3 className="text-3xl font-semibold mb-6 text-gray-900 dark:text-white">
           Platform Insights
         </h3>
 
         <div className="flex justify-between items-center mb-6">
-          <div>
-            <div className="flex space-x-2 mt-2">
-              {adminData.map((data) => (
-                <button
-                  key={data.year}
-                  onClick={() => handleYearChange(data.year)}
-                  className={`px-4 py-2 rounded-md ${
-                    selectedYear === data.year
-                      ? 'bg-primary text-white'
-                      : 'bg-gray-200 text-gray-600 hover:bg-primary hover:text-white dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-primary'
-                  }`}
-                >
-                  {data.year}
-                </button>
-              ))}
-            </div>
+          <div className="flex space-x-2 mt-2">
+            {adminData.map((data) => (
+              <button
+                key={data.year}
+                onClick={() => handleYearChange(data.year)}
+                className={`px-4 py-2 rounded-md ${
+                  selectedYear === data.year
+                    ? 'bg-primary text-white'
+                    : 'bg-gray-200 text-gray-600 hover:bg-primary hover:text-white dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-primary'
+                }`}
+              >
+                {data.year}
+              </button>
+            ))}
           </div>
         </div>
 
@@ -119,6 +156,7 @@ const PlatformInsights = () => {
 
         <div className="flex justify-center mt-4">
           <button
+            aria-label="Previous page"
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
             className={`px-3 py-1 mx-1 rounded-md ${
@@ -143,6 +181,7 @@ const PlatformInsights = () => {
             </button>
           ))}
           <button
+            aria-label="Next page"
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
             className={`px-3 py-1 mx-1 rounded-md ${
